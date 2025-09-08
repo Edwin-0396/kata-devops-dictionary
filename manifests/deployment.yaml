@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kata-dictionary
+  namespace: kata-system
   labels:
     app: kata-dictionary
 spec:
@@ -14,9 +15,10 @@ spec:
       labels:
         app: kata-dictionary
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: kata-dictionary
-          image: ghcr.io/YOUR_GITHUB_USER/kata-dictionary:latest
+          image: ghcr.io/Edwin-0396/kata-dictionary@sha256:8024538590a99301b9d22626f32cdf9d345815ab035cbc7a2e34d6cb07a1f15f
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
@@ -39,9 +41,15 @@ spec:
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
-      env:
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: kata-dictionary-secrets
-              key: secret-key
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: kata-dictionary-secrets
+                  key: secret-key
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]

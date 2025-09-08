@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kata-dictionary
+  namespace: kata-system
   labels:
     app: kata-dictionary
 spec:
