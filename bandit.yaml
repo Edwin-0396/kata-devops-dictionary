@@ -1,2 +1,2 @@
-exclude:
+exclude_dirs:
   - app/tests.py
