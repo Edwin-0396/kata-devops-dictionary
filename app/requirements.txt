@@ -1,0 +1,4 @@
+pytest
+prometheus-client
+requests
+numpy

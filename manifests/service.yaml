@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kata-dictionary
+  labels:
+    app: kata-dictionary
+spec:
+  type: ClusterIP
+  selector:
+    app: kata-dictionary
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000

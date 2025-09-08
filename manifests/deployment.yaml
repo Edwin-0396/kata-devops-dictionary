@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kata-dictionary
+  labels:
+    app: kata-dictionary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kata-dictionary
+  template:
+    metadata:
+      labels:
+        app: kata-dictionary
+    spec:
+      containers:
+        - name: kata-dictionary
+          image: ghcr.io/YOUR_GITHUB_USER/kata-dictionary:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: kata-dictionary-secrets
+              key: secret-key

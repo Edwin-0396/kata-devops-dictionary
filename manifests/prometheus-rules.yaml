@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kata-dictionary-rules
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: kata-dictionary.rules
+      rules:
+        - alert: HighLookupFailures
+          expr: sum(rate(dictionary_requests_total{result="miss"}[5m])) 
+                / sum(rate(dictionary_requests_total[5m])) > 0.2
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High lookup miss rate in kata-dictionary"
+            description: "More than 20% of lookups failed in the last 5 minutes."
