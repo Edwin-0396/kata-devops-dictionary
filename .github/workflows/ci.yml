@@ -1,4 +1,11 @@
-  docker-build-and-scan:
+heck failure on line 1 in .github/workflows/ci.yml
+
+
+GitHub Actions
+/ .github/workflows/ci.yml
+Invalid workflow file
+
+(Line: 1, Col: 3): Unexpected value 'docker-build-and-scan', (Line: 1, Col: 3): Required property is missing: jobs
     runs-on: ubuntu-latest
     needs: build-test-secure
     steps:
