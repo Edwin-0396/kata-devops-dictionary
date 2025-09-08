@@ -17,10 +17,11 @@ spec:
     spec:
       automountServiceAccountToken: false
       securityContext:                # ✅ Pod-level security context
-        runAsUser: 1000               # Non-root UID
-        runAsGroup: 1000              # Matching group
-        fsGroup: 1000                 # Filesystem group
-        seccompProfile:               # Default seccomp profile
+        runAsNonRoot: true
+        runAsUser: 10000
+        runAsGroup: 10000
+        fsGroup: 10000
+        seccompProfile:
           type: RuntimeDefault
       containers:
         - name: kata-dictionary
