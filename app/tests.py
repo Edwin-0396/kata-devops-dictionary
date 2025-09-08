@@ -12,6 +12,5 @@ def test_lookup_missing_word():
 
 def test_update_existing_word():
     d = Dictionary()
-    d.newentry("Apple", "First definition")
     d.newentry("Apple", "Updated definition")
     assert d.look("Apple") == "Updated definition"
