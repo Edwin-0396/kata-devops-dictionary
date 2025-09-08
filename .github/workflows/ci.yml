@@ -29,7 +29,7 @@ jobs:
       run: pytest app/tests.py -v
 
     - name: Security scan (Bandit)
-      run: bandit -r app/
+      run: bandit -r app/ -c bandit.yaml
 
     - name: IaC scan (Checkov)
       run: checkov -d .
